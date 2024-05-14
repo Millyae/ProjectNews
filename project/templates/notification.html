@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notification</title>
+</head>
+<body>
+    <h1>Subscription Notification</h1>
+    <p>Dear {{ subscriber.username }},</p>
+    <p>A new article has been added to your favorite category!</p>
+    <p>Title: {{ news.title }}</p>
+    <p>Content: {{ news.content|truncatechars:50 }}</p>
+    <p>Visit the <a href="{{ news.get_absolute_url }}">article</a> to read more.</p>
+    <p>Thank you for subscribing!</p>
+</body>
+</html>

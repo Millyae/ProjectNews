@@ -1,0 +1,59 @@
+<!--  наследуемся от шаблона default.html, который мы создавали для flatpages -->
+{% extends 'flatpages/default.html' %}
+{% load custom_filters %}
+{% load custom_tags %}
+
+{% block title %}
+News
+{% endblock title %}
+
+{% block content %}
+
+{% block page_hearder %}
+<div style = "text-align:left;">
+    <p><u>Колисечство новостей {{news|length}}</u></p>
+</div>
+{% endblock page_hearder %}
+
+   <h1>Новости</h1>
+<hr>
+   {% if news %}
+        <table>
+            <tr>
+                <td><h3><b>Заголовок</b></h3></td>
+                <td><h3><b>Автор</b></h3></td>
+                <td><h3><b>Описание</b></h3></td>
+                <td><h3><b>Дата добавления</b></h3></td>
+            </tr>
+           {%for news in news%}
+           <tr>
+               <td>{{news.title}}</td>
+               <td>{{news.author}}</td>
+               <td>{{news.content|truncatewords:20|censor}}</td>
+               <td>{{news.created_at|date:"d.m.Y"}}</td>
+           </tr>
+           {%endfor%}
+        </table>
+   {% else %}
+
+       <h2>Новостей нет!</h2>
+   {% endif %}
+
+    {% if page_obj.has_previous %}
+       <a href="?{% url_replace page=1 %}">1</a>
+       {% if page_obj.previous_page_number != 1 %}
+           ...
+           <a href="?{% url_replace page=page_obj.previous_page_number %}">{{ page_obj.previous_page_number }}</a>
+       {% endif %}
+   {% endif %}
+
+   {{ page_obj.number }}
+
+   {% if page_obj.has_next %}
+       <a href="?{% url_replace page=page_obj.next_page_number %}">{{ page_obj.next_page_number }}</a>
+       {% if paginator.num_pages != page_obj.next_page_number %}
+           ...
+           <a href="?{% url_replace page=page_obj.paginator.num_pages %}">{{ page_obj.paginator.num_pages }}</a>
+       {% endif %}
+   {% endif %}
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h1>Новости</h1>
+<hr>
+
+<h2>Вы уверены, что хотите удалить новость "{{ news.title }}"?</h2>
+<p>Автор: {{ news.author }}</p>
+<p>Дата добавления: {{ news.created_at }}</p>
+
+<form action="" method="post">
+    {% csrf_token %}
+    <input type="submit" value="Delete" />
+</form>
+{% endblock content %}

@@ -1,0 +1,23 @@
+{% extends 'flatpages/default.html' %}
+
+{% block content %}
+<h1>Поиск новостей</h1>
+<hr>
+
+<form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Поиск</button>
+</form>
+
+{% if filter.qs %}
+    <h2>Рузальтаты новостей:</h2>
+    <ul>
+        {% for news in filter.qs %}
+        <li><p>{{ news.title }} - {{ news.author }} - {{ news.created_at }}</p></li>
+        {% endfor %}
+    </ul>
+{% else %}
+    <p>По вашему запросу новостей не найдено.</p>
+{% endif %}
+
+{% endblock content %}
